@@ -1,8 +1,10 @@
-## Exome capture analysis
+## Exome capture comparison analysis
 
 Codes corresponding to all analyses and figure generation in:
 
 ***
+
+Analyzing subtype call differences between a whole-transcriptome RNA-seq method and a commercial exome-capture assay
 
 **Data availability:**
 
