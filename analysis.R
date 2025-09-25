@@ -47,7 +47,6 @@ ggsurvplot(os.fit.rna, size = 1.2, pval = T, censor = T, censor.shape = 108, cen
 print(os.fit.rna) # get median with confidence intervals
 rna.cox <- coxph(Surv(Time.to.os, OS.code) ~ PurIST_rnaseq, data = tmp.surv) # coxph model (figure s3a)
 summary(rna.cox)
-rna.cox %>% tbl_regression(exp = T)
 
 # survival by tempus rna-seq (figure 3b)
 os.fit.tmp <- survfit(Surv(Time.to.os, OS.code) ~ PurIST_tempus, conf.type = "plain", data = tmp.surv)
@@ -63,7 +62,6 @@ ggsurvplot(os.fit.tmp, size = 1.2, pval = T, censor = T, censor.shape = 108, cen
 print(os.fit.tmp) # get median with confidence intervals
 tmp.cox <- coxph(Surv(Time.to.os, OS.code) ~ PurIST_tempus, data = tmp.surv) # coxph model (figure s3a)
 summary(tmp.cox)
-tmp.cox %>% tbl_regression(exp = T)
 
 # compare log-likelihood between methods
 # model with higher log-likelihood (less negative value) provides a better fit
@@ -137,7 +135,6 @@ ggsurvplot(pfs.fit.rna, size = 1.2, pval = T, censor = T, censor.shape = 108, ce
 print(pfs.fit.rna)
 rna.cox2 <- coxph(Surv(Time.to.pfs, PFS.code) ~ PurIST_rnaseq, data = tmp.surv)
 summary(rna.cox2)
-rna.cox2 %>% tbl_regression(exp = T)
 
 pfs.fit.tmp <- survfit(Surv(Time.to.pfs, PFS.code) ~ PurIST_tempus, conf.type = "plain", data = tmp.surv)
 ggsurvplot(pfs.fit.tmp, size = 1.2, pval = T, censor = T, censor.shape = 108, censor.size = 3,
@@ -152,7 +149,6 @@ ggsurvplot(pfs.fit.tmp, size = 1.2, pval = T, censor = T, censor.shape = 108, ce
 print(pfs.fit.tmp)
 tmp.cox2 <- coxph(Surv(Time.to.pfs, PFS.code) ~ PurIST_tempus, data = tmp.surv)
 summary(tmp.cox2)
-tmp.cox2 %>% tbl_regression(exp = T)
 
 # forest plot of hazard ratios for pfs (figure s3b)
 rna.cox.sum2 <- data.frame(
