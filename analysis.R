@@ -231,7 +231,7 @@ tmp.pred <- tmp.pred %>%
 merged.pred <- merge(tmp.pred, rna.pred, by = "ptID") # y will be rna-seq and x will be tempus
 
 ## need to remove extraneous characters (periods and parentheses) from names to match
-tempus$Sample <- gsub("\\.|\\(|\\)", "", tempus$Sample) 
+tmp.surv$Sample <- gsub("\\.|\\(|\\)", "", tmp.surv$Sample) 
 merged.pred$sampID.y <- gsub("\\.|\\(|\\)", "", merged.pred$sampID.y)
 
 ## order predictions by purist probability from rna-seq
