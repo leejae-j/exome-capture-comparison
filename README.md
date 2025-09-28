@@ -8,5 +8,5 @@ Analyzing subtype call differences between a whole-transcriptome RNA-seq method 
 
 **Data availability:**
 
-* Survival data with subtype calls can be found in **clinical_data.csv**
-* Subtype calls with basal-like probability by NanoString vs. RNA-seq can be found in **pancreas_trial_samples.csv**
+* Survival data with subtype calls from whole transcriptome and exome capture RNA-seq can be found in **clinical_data.csv**
+* Subtype calls with basal-like probability by NanoString vs. RNA-seq from the trial cohort can be found in **pancreas_trial_samples.csv**
