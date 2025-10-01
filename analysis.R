@@ -18,17 +18,17 @@ library(survcomp)
 tmp.surv <- read.csv("path_to_clinical_data.csv", na.strings = c("", "NA"))
 
 # binomial test
-# 22 is number of basal-like samples in tempus, 7/79 is the "expected" proportion of basal-like samples per RNA-seq (reference)
+## 22 is number of basal-like samples in tempus, 7/79 is the "expected" proportion of basal-like samples per RNA-seq (reference)
 binom.test(22, 79, p = 7/79, alternative = "greater")
 
-# relevel subtypes
+## relevel subtypes
 tmp.surv$PurIST_rnaseq <- factor(tmp.surv$PurIST_rnaseq, levels = c("Classical", "Basal-like"))
 tmp.surv$PurIST_tempus <- factor(tmp.surv$PurIST_tempus, levels = c("Classical", "Basal-like"))
 
 # kappa test (figure 1a)
 confusionMatrix(tmp.surv$PurIST_tempus, tmp.surv$PurIST_rnaseq, mode = "prec_recall", positive = "Basal-like")
 
-# to get the confidence interval of kappa
+## to get the confidence interval of kappa
 tmp.surv %>%
   {table(RNAseq = .$PurIST_rnaseq, Tempus = .$PurIST_tempus)} %>%
   Kappa.test()
@@ -63,8 +63,8 @@ print(os.fit.tmp) # get median with confidence intervals
 tmp.cox <- coxph(Surv(Time.to.os, OS.code) ~ PurIST_tempus, data = tmp.surv) # coxph model (figure s3a)
 summary(tmp.cox)
 
-# compare log-likelihood between methods
-# model with higher log-likelihood (less negative value) provides a better fit
+## compare log-likelihood between methods
+## model with higher log-likelihood (less negative value) provides a better fit
 rna.loglik <- logLik(rna.cox)
 tmp.loglik <- logLik(tmp.cox)
 rna.loglik
@@ -400,7 +400,7 @@ log_rna_ratios <- log2(rna_ratios)
 log_tmp_ratios <- log2(tmp_ratios)
 
 ## turn log b/c ratios into basal (>0) or classical (<0)
-## there is one in rna-seq where the b/c ratio is 1 (and log of that ratio is 0) - will treat this is classical
+## there is one in rna-seq where the b/c ratio is 1 - will treat this is classical
 rna_class <- t(log_rna_ratios)
 tmp_class <- t(log_tmp_ratios)
 
@@ -638,7 +638,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "GPR87", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$GPR87_rnaseq, tsp.paired$GPR87_tempus, paired = T)
 wilcox.test(tsp.paired$GPR87_rnaseq, tsp.paired$GPR87_tempus, paired = T, alternative = "greater")
 
@@ -669,7 +669,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "KRT6A", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$KRT6A_rnaseq, tsp.paired$KRT6A_tempus, paired = T)
 wilcox.test(tsp.paired$KRT6A_rnaseq, tsp.paired$KRT6A_tempus, paired = T, alternative = "greater")
 
@@ -700,7 +700,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "BCAR3", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$BCAR3_rnaseq, tsp.paired$BCAR3_tempus, paired = T)
 wilcox.test(tsp.paired$BCAR3_rnaseq, tsp.paired$BCAR3_tempus, paired = T, alternative = "greater")
 
@@ -731,7 +731,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "PTGES", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$PTGES_rnaseq, tsp.paired$PTGES_tempus, paired = T)
 wilcox.test(tsp.paired$PTGES_rnaseq, tsp.paired$PTGES_tempus, paired = T, alternative = "greater")
 
@@ -762,7 +762,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "ITGA3", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$ITGA3_rnaseq, tsp.paired$ITGA3_tempus, paired = T)
 wilcox.test(tsp.paired$ITGA3_rnaseq, tsp.paired$ITGA3_tempus, paired = T, alternative = "greater")
 
@@ -793,7 +793,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "C16orf74", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$C16orf74_rnaseq, tsp.paired$C16orf74_tempus, paired = T)
 wilcox.test(tsp.paired$C16orf74_rnaseq, tsp.paired$C16orf74_tempus, paired = T, alternative = "greater")
 
@@ -824,7 +824,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "S100A2", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$S100A2_rnaseq, tsp.paired$S100A2_tempus, paired = T)
 wilcox.test(tsp.paired$S100A2_rnaseq, tsp.paired$S100A2_tempus, paired = T, alternative = "greater")
 
@@ -855,7 +855,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "KRT5", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$KRT5_rnaseq, tsp.paired$KRT5_tempus, paired = T)
 wilcox.test(tsp.paired$KRT5_rnaseq, tsp.paired$KRT5_tempus, paired = T, alternative = "greater")
 
@@ -886,7 +886,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "REG4", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$REG4_rnaseq, tsp.paired$REG4_tempus, paired = T)
 wilcox.test(tsp.paired$REG4_rnaseq, tsp.paired$REG4_tempus, paired = T, alternative = "greater")
 
@@ -917,7 +917,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "ANXA10", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$ANXA10_rnaseq, tsp.paired$ANXA10_tempus, paired = T)
 wilcox.test(tsp.paired$ANXA10_rnaseq, tsp.paired$ANXA10_tempus, paired = T, alternative = "greater")
 
@@ -948,7 +948,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "GATA6", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$GATA6_rnaseq, tsp.paired$GATA6_tempus, paired = T)
 wilcox.test(tsp.paired$GATA6_rnaseq, tsp.paired$GATA6_tempus, paired = T, alternative = "greater")
 
@@ -979,7 +979,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "CLDN18", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$CLDN18_rnaseq, tsp.paired$CLDN18_tempus, paired = T)
 wilcox.test(tsp.paired$CLDN18_rnaseq, tsp.paired$CLDN18_tempus, paired = T, alternative = "greater")
 
@@ -1010,7 +1010,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "LGALS4", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$LGALS4_rnaseq, tsp.paired$LGALS4_tempus, paired = T)
 wilcox.test(tsp.paired$LGALS4_rnaseq, tsp.paired$LGALS4_tempus, paired = T, alternative = "greater")
 
@@ -1041,7 +1041,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "DDC", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$DDC_rnaseq, tsp.paired$DDC_tempus, paired = T)
 wilcox.test(tsp.paired$DDC_rnaseq, tsp.paired$DDC_tempus, paired = T, alternative = "greater")
 
@@ -1072,7 +1072,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "SLC40A1", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$SLC40A1_rnaseq, tsp.paired$SLC40A1_tempus, paired = T)
 wilcox.test(tsp.paired$SLC40A1_rnaseq, tsp.paired$SLC40A1_tempus, paired = T, alternative = "greater")
 
@@ -1103,7 +1103,7 @@ ggplot(tsp.paired) +
         aspect.ratio=1.5) +
   labs(title = "CLRN3", x = "Method", y = "Relative expression")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if RNA-seq > Tempus
 wilcox.test(tsp.paired$CLRN3_rnaseq, tsp.paired$CLRN3_tempus, paired = T)
 wilcox.test(tsp.paired$CLRN3_rnaseq, tsp.paired$CLRN3_tempus, paired = T, alternative = "greater")
 
@@ -1147,7 +1147,7 @@ ggplot(merged_tsp) +
         aspect.ratio=1.5) +
   labs(x = "Method", y = "Basal-like probability")
 
-cat("Wilcoxon signed-rank test for paired data: first one is any change, second is specifically if Tempus > RNA-seq")
+## wilcoxon signed-rank test for paired data: first one is any change, second is specifically if Tempus > RNA-seq
 wilcox.test(merged_tsp$PurIST_prob.y, merged_tsp$PurIST_prob.x, paired = T)
 wilcox.test(merged_tsp$PurIST_prob.x, merged_tsp$PurIST_prob.y, paired = T, alternative = "greater")
 
@@ -1324,7 +1324,7 @@ ggplot(clia) +
         aspect.ratio = 1.7) +
   labs(x = "Method", y = "Basal-like probability")
 
-cat("Wilcoxon signed-rank test for paired data")
+## wilcoxon signed-rank test for paired data
 wilcox.test(clia$PurIST_prob_RNA, clia$PurIST_score_CLIA, paired = T)
 
 # probability difference between rna-seq and nanostring vs percent malignancy (figure 4c)
@@ -1350,5 +1350,5 @@ ggplot(clia, aes(x = Avg_malig, y = residuals)) +
   scale_y_continuous(expand = c(.01, .01), limits = c(-.75,.75), breaks = seq(-.75,.75,.25)) +
   labs(x = "Percent malignant cells", y = "Probability difference")
 
-cat("Pearson's correlation between percent malignant cells and probability differences")
+## pearson's correlation between percent malignant cells and probability differences
 cor.test(clia$Avg_malig, clia$residuals)
