@@ -16,9 +16,11 @@ library(survcomp)
 # load summarized data
 tmp.surv <- read.csv("path_to_clinical_data.csv", na.strings = c("", "NA"))
 
-# binomial test
-## 22 is number of basal-like samples in tempus, 7/79 is the "expected" proportion of basal-like samples per RNA-seq (reference)
-binom.test(22, 79, p = 7/79, alternative = "greater")
+# binomial test to compare probability of basal-like with exome-capture using whole-transcriptome as reference
+binom.test(length(which(tmp.surv$PurIST_tempus=="Basal-like")), 
+           nrow(tmp.surv), 
+           p = length(which(tmp.surv$PurIST_rnaseq=="Basal-like")) / nrow(tmp.surv),
+           alternative = "greater")
 
 ## relevel subtypes
 tmp.surv$PurIST_rnaseq <- factor(tmp.surv$PurIST_rnaseq, levels = c("Classical", "Basal-like"))
