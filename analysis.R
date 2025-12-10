@@ -202,8 +202,8 @@ ggplot(pfs.cox.sum, aes(y = method, x = hazard_ratio, color = method)) +
         aspect.ratio = .5)
 
 # make heatmaps for relative gene expression of purist tsps by method (figure 2b)
-rna <- readRDS("path_to_rna_tpm.rds") # load tpm matrix of rna-seq
-tmp <- readRDS("path_to_tempus_tpm.rds") # load tpm matrix of tempus results
+rna <- read.csv("path_to_rna_tpm.rds", row.names = 1) # load tpm matrix of rna-seq
+tmp <- read.csv("path_to_tempus_tpm.rds", row.names = 1) # load tpm matrix of tempus results
 purist_genes <- read.csv("path_to_purist_genes.csv") # load purist genes
 
 ## rank normalize genes (entire genes in expression matrix)
