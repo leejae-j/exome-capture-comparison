@@ -9,4 +9,4 @@ Analyzing subtype call differences between a whole-transcriptome RNA-seq method 
 
 **Data availability:**
 
-* TPM files and deidentified survival data with subtype calls from whole transcriptome and exome capture RNA-seq can be downloaded from GSE***.
+* TPM files and deidentified survival data with subtype calls from whole transcriptome and exome capture RNA-seq can be downloaded from GSE313117.
